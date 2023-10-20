@@ -27,5 +27,9 @@ public class Voter extends BaseEntity{
      @Column(length = 15 , nullable = false)
 	 private String password;
      
+     @Column(length = 15 , nullable = false)
+	 private String status;
+     
+     
      
 }
