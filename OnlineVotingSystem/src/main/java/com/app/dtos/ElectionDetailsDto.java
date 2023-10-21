@@ -28,4 +28,6 @@ public class ElectionDetailsDto {
 		 private Date endDate;
 		 
 		  private String state;
+
+		
 }

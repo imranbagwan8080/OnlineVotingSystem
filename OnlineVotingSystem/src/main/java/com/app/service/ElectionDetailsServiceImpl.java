@@ -76,4 +76,10 @@ public List<PrevElectionDetailsDto> getPreviousElectionDetails() {
 
 }
 
+public ElectionDetailsDto addElectionDetails(ElectionDetailsDto ed) {
+	ElectionDetails e=new ElectionDetails(ed.getNameOfElection(),ed.getConstituency(),ed.getStartDate(),ed.getEndDate(),ed.getState());
+	ElectionDetails eReturn=electionDetailsDao.save(e);
+	return new ElectionDetailsDto(eReturn.getNameOfElection(),eReturn.getConstituency(),eReturn.getStartDate(),eReturn.getEndDate(),eReturn.getState());
+}
+
 }

@@ -54,11 +54,5 @@ public class Candidate extends BaseEntity{
 	private String status;
 	
 	
-	
-	
-	
-	
-	
-	
 
 }
