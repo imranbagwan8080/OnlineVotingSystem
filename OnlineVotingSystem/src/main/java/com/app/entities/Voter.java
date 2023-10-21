@@ -18,16 +18,16 @@ import lombok.ToString;
 @Table(name = "voter")
 public class Voter extends BaseEntity{
      
-     @Column(length = 20 , nullable = false)
+     @Column(length = 20 )
 	 private String voterId;
      
-     @Column(length = 15 , nullable = false )
+     @Column(length = 15 )
 	 private String mobile;
      
-     @Column(length = 15 , nullable = false)
+     @Column(length = 20 )
 	 private String password;
      
-     @Column(length = 15 , nullable = false)
+     @Column(length = 15 )
 	 private String status;
      
      
