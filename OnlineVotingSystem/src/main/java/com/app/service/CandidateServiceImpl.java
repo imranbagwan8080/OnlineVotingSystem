@@ -24,6 +24,6 @@ public class CandidateServiceImpl implements CandidateService {
 		 return "Save Successfully";
 	}
 	
-	
+
 
 }

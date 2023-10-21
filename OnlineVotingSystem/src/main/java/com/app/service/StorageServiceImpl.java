@@ -18,6 +18,7 @@ public class StorageServiceImpl implements StorageService {
 
 		String fileName = file.getOriginalFilename();
 		File dir = new File("images");
+
 		
 		if(!dir.isDirectory()) {
 			System.out.println("dir created");
@@ -27,6 +28,7 @@ public class StorageServiceImpl implements StorageService {
 		File filePath = new File("images", fileName);
 		try(FileOutputStream out = new FileOutputStream(filePath)) {
 			System.out.println("file write");
+
 			FileCopyUtils.copy(file.getInputStream(), out);
 			return fileName;
 		} catch (Exception e) {

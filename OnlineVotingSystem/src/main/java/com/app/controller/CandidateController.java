@@ -30,6 +30,7 @@ public class CandidateController {
 	
 	@Autowired 
 	public StorageService storageService;
+
 	@Autowired
 	public ElectionDetailsDao edtailsDao;
 	
@@ -52,6 +53,7 @@ public class CandidateController {
 		String thumbnailParty = storageService.store(candidateDto.getPartySymbol());
 		
 		return candidateServ.registerCandidate(cand1);  
+
 	}
 	
 	
