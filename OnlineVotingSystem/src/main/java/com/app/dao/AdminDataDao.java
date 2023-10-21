@@ -6,4 +6,6 @@ import com.app.entities.AdminData;
 
 public interface AdminDataDao extends JpaRepository<AdminData, Long> {
 
+	public AdminData findByAdminId(String adminId);
+
 }
