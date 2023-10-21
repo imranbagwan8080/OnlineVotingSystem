@@ -1,14 +1,17 @@
 package com.app.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.customException.ResourceNotFoundException;
 import com.app.dao.CandidateDao;
 import com.app.dao.ElectionDataDao;
 import com.app.dao.ElectionDetailsDao;
@@ -81,5 +84,54 @@ public ElectionDetailsDto addElectionDetails(ElectionDetailsDto ed) {
 	ElectionDetails eReturn=electionDetailsDao.save(e);
 	return new ElectionDetailsDto(eReturn.getNameOfElection(),eReturn.getConstituency(),eReturn.getStartDate(),eReturn.getEndDate(),eReturn.getState());
 }
+
+public ElectionDetailsDto getTodayElectionDetails() {
+//	Date d=new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+    Date d = new Date();
+    
+    Calendar calendar1 = Calendar.getInstance();
+    calendar1.setTime(d);
+    calendar1.set(Calendar.HOUR_OF_DAY, 0);
+    calendar1.set(Calendar.MINUTE, 0);
+    calendar1.set(Calendar.SECOND, 0);
+    calendar1.set(Calendar.MILLISECOND, 0);
+   
+    String formattedDate = sdf.format(d);
+	System.out.println(formattedDate);
+	System.out.println();
+	ElectionDetails matching=new ElectionDetails();
+	List<ElectionDetails> e=electionDetailsDao.findAll();
+	for(ElectionDetails c:e) {
+	
+		   Calendar calendar2 = Calendar.getInstance();
+		    calendar2.setTime(c.getEndDate());
+		    calendar2.set(Calendar.HOUR_OF_DAY, 0);
+		    calendar2.set(Calendar.MINUTE, 0);
+		    calendar2.set(Calendar.SECOND, 0);
+		    calendar2.set(Calendar.MILLISECOND, 0);
+		
+		if(calendar1.getTime().compareTo(calendar2.getTime())==0) {
+			System.out.println("Yes");
+			matching=c;
+		}
+	}
+
+	System.out.println();
+	return new ElectionDetailsDto(matching.getNameOfElection(), matching.getConstituency(), matching.getStartDate(), matching.getEndDate(), matching.getState());
+}
+
+public Set<String> getElectionNamesList() {
+	List<ElectionDetails> list=electionDetailsDao.findAll();
+	Set<String> set=new LinkedHashSet<>();
+	for(ElectionDetails s:list) {
+		set.add(s.getNameOfElection());
+	}
+	return set;
+}
+
+
+
+
 
 }
