@@ -10,12 +10,11 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Component
+//@Component
 public class CandidateDto {
 	
 	private String party;
-	private MultipartFile candidateImage;
-	
+	private MultipartFile candidateImage;	
 	private MultipartFile partySymbol;
 	private String occupation;	
 	private String education;	

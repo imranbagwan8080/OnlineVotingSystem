@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dao.ElectionDataDao;
+import com.app.dao.ElectionDetailsDao;
 import com.app.dtos.CandidateDto;
 import com.app.dtos.ConverterDto;
 import com.app.entities.Candidate;
+import com.app.entities.ElectionData;
+import com.app.entities.ElectionDetails;
 import com.app.service.CandidateService;
 import com.app.service.StorageService;
 
@@ -26,16 +30,28 @@ public class CandidateController {
 	
 	@Autowired 
 	public StorageService storageService;
+	@Autowired
+	public ElectionDetailsDao edtailsDao;
+	
+	@Autowired
+	public ElectionDataDao edataDao;	
+	
 	
 	
 	@PostMapping("/register")
-	public Candidate registerCandidate(CandidateDto candidateDto) {
+	public String registerCandidate(CandidateDto candidateDto) {
 		
 		Candidate cand = converter.candDtotoEntity(candidateDto);
+		
+		ElectionDetails ed = edtailsDao.findById(candidateDto.getElectionDetailsID()).orElseThrow();
+		ElectionData edta = edataDao.findById(candidateDto.getElectionDataID()).orElseThrow();
+
+		Candidate cand1 = new Candidate(candidateDto.getParty(),cand.getCandidateImage(),cand.getPartySymbol(),candidateDto.getOccupation(),candidateDto.getEducation(),ed,edta,"pending");
+		
 		String thumbnailCand = storageService.store(candidateDto.getCandidateImage());
 		String thumbnailParty = storageService.store(candidateDto.getPartySymbol());
 		
-		return candidateServ.registerCandidate(cand);  
+		return candidateServ.registerCandidate(cand1);  
 	}
 	
 	

@@ -57,7 +57,13 @@ public class ElectionDetails extends BaseEntity{
 		this.endDate = endDate;
 		this.state = state;
 	}
-	  
 
+
+	
+	
+
+
+	  
+	
 	
 }

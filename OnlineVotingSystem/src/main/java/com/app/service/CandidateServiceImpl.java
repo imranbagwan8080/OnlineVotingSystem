@@ -17,10 +17,13 @@ public class CandidateServiceImpl implements CandidateService {
 	
 
 	@Override
-	public Candidate registerCandidate(Candidate candidate) {
+	public String registerCandidate(Candidate candidate) {
 		System.out.println("Candidate service");
 		
-		return candidateDao.save(candidate);
+		 candidateDao.save(candidate);
+		 return "Save Successfully";
 	}
+	
+	
 
 }
