@@ -24,5 +24,6 @@ public class AdminData extends BaseEntity{
 	@Column(length = 30)
 	private String password;
 	
+	
 
 }

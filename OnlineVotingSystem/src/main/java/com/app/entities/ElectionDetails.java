@@ -37,11 +37,9 @@ public class ElectionDetails extends BaseEntity{
 	 @Temporal(TemporalType.TIMESTAMP)
 	 private Date endDate;
 	 
-	  @Column(length = 50 )
-	 private String status;
 	 
 	  @Column(length = 50 , name = "winnerVoterId" )
-	 private int winnerVoterId;
+	  private int winnerVoterId;
 	  
 	  
 	  @OneToMany(mappedBy = "electionDetails" , cascade = CascadeType.ALL)
