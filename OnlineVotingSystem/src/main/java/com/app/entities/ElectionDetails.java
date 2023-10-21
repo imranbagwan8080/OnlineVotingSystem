@@ -48,5 +48,16 @@ public class ElectionDetails extends BaseEntity{
 	  @OneToMany(mappedBy = "electionDetails" , cascade = CascadeType.ALL)
 	  private List<Candidate> candidates;
 
+
+	public ElectionDetails(String nameOfElection, String constituency, Date startDate, Date endDate, String state) {
+		super();
+		this.nameOfElection = nameOfElection;
+		this.constituency = constituency;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.state = state;
+	}
+	  
+
 	
 }
