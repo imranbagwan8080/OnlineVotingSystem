@@ -21,8 +21,9 @@ import lombok.ToString;
 @ToString
 @MappedSuperclass
 public class BaseEntity {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
 }

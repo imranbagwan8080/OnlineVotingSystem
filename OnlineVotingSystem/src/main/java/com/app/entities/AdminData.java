@@ -17,8 +17,10 @@ import lombok.ToString;
 @Entity
 @Table(name="adminData")
 public class AdminData extends BaseEntity{
+	
 	@Column(length = 20)
 	private String adminId;
+	
 	@Column(length = 30)
 	private String password;
 	
