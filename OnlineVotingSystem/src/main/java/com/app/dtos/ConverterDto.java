@@ -1,4 +1,4 @@
-package com.app.dto;
+package com.app.dtos;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

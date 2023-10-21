@@ -1,4 +1,4 @@
-package com.app.dto;
+package com.app.dtos;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.CandidateDto;
-import com.app.dto.ConverterDto;
+import com.app.dtos.CandidateDto;
+import com.app.dtos.ConverterDto;
 import com.app.entities.Candidate;
 import com.app.service.CandidateService;
 import com.app.service.StorageService;
