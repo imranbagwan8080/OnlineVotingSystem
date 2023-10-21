@@ -37,18 +37,27 @@ public class ElectionDetails extends BaseEntity{
 	 @Temporal(TemporalType.TIMESTAMP)
 	 private Date endDate;
 	 
-	  @Column(length = 50 )
-	 private String status;
 	 
 	  @Column(length = 50 , name = "winnerVoterId" )
-	 private int winnerVoterId;
+	  private int winnerVoterId;
+	  
+	  @Column(length = 50 )
+		 private String state;
 	  
 	  
 	  @OneToMany(mappedBy = "electionDetails" , cascade = CascadeType.ALL)
 	  private List<Candidate> candidates;
+
+
+	public ElectionDetails(String nameOfElection, String constituency, Date startDate, Date endDate, String state) {
+		super();
+		this.nameOfElection = nameOfElection;
+		this.constituency = constituency;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.state = state;
+	}
 	  
-	  @Column(length = 20)
-	  private String state;
-	 
+
 	
 }

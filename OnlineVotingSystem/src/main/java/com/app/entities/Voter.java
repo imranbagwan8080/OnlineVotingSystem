@@ -2,6 +2,7 @@ package com.app.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Voter extends BaseEntity{
      @Column(length = 15 )
 	 private String status;
      
+    
      
      
 }
