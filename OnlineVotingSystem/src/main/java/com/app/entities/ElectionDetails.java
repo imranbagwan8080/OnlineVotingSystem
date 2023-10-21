@@ -47,7 +47,6 @@ public class ElectionDetails extends BaseEntity{
 	  
 	  @OneToMany(mappedBy = "electionDetails" , cascade = CascadeType.ALL)
 	  private List<Candidate> candidates;
-	
-	 
+
 	
 }
