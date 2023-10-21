@@ -56,7 +56,8 @@ public class ElectionData extends BaseEntity{
      @OneToOne(mappedBy = "electionData", cascade = CascadeType.ALL)
      private Candidate candidate;
      
-     
+     @OneToOne(mappedBy = "electionData")
+     private Voter voter;
      
      
 
