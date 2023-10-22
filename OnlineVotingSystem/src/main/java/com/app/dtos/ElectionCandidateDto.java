@@ -13,11 +13,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Component
 public class ElectionCandidateDto {
+	long id;
 	private String fName;
 	private String lName;
 	private String party;
-	private MultipartFile candidateImage;	
-	private MultipartFile partySymbol;
+	private String candidateImage;	
+	private String partySymbol;
 	private String gender;
 	private Long voteCount;	
 }

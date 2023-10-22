@@ -18,7 +18,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ElectionDetailsDto {
-
+         long id;
 		 private String nameOfElection;
 		 
 		 private String constituency ;

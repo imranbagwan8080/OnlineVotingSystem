@@ -57,6 +57,10 @@ public class ElectionDetailsController {
 	public ResponseEntity<?> getElectionListByConstituency(@PathVariable("constituency") String constituency){
 		return ResponseEntity.ok(electionDetailsServiceImpl.getElectionDeatilsByConstituency(constituency));
 	}
-	
+	//get candidates of specific election
+	@GetMapping("/ElectionCandidates/{id}")
+	public ResponseEntity<?> getCandidateOfElection(@PathVariable("id")long id){
+		return ResponseEntity.ok(electionDetailsServiceImpl.getElectionCandidateList(id));
+	}
 	
 }
