@@ -9,5 +9,7 @@ import com.app.entities.Candidate;
 
 @Repository
 public interface CandidateDao extends JpaRepository<Candidate, Long> {
-List<Candidate> findByElectionDataId(long ElectionId);
+    List<Candidate> findByElectionDataId(long ElectionId);
+
+    Candidate findById(long id);
 }

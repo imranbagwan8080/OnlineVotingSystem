@@ -50,6 +50,7 @@ public class ElectionDetails extends BaseEntity{
 	  private List<Candidate> candidates;
 
 
+
 	public ElectionDetails(String nameOfElection, String constituency, Date startDate, Date endDate, String state) {
 		super();
 		this.nameOfElection = nameOfElection;
@@ -59,12 +60,5 @@ public class ElectionDetails extends BaseEntity{
 		this.state = state;
 	}
 
-
-	
-	
-
-
-	  
-	
 	
 }
