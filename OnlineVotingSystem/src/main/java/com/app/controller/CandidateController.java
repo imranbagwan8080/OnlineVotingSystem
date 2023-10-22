@@ -1,7 +1,10 @@
 package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,5 +59,18 @@ public class CandidateController {
 
 	}
 	
+	 @GetMapping("/verifyCandidate/{candidateId}")
+	    public ResponseEntity<String> verifyCandidate(@PathVariable long candidateId){
+	    	String verify =  candidateServ.verifyCandidateByAdmin(candidateId);
+	             return	ResponseEntity.ok(verify);
+	    	   
+	     }
+	
+	 @GetMapping("/rejectCandidate/{candidateId}")
+	    public ResponseEntity<String> rejectCandidate(@PathVariable long candidateId){
+	    	String reject =  candidateServ.rejectCandidateByAdmin(candidateId);
+	             return	ResponseEntity.ok(reject);
+	    	   
+	     }
 	
 }

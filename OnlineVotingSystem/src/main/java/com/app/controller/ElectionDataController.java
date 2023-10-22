@@ -27,7 +27,7 @@ public class ElectionDataController {
 		if(d!=null) {
 			return "Voter Data Added Succesfully";
 		}else {
-			return "Something Went Wrong";
+			return null;
 		}
 		
 		
