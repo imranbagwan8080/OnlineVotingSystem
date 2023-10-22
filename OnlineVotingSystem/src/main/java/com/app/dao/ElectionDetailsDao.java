@@ -11,4 +11,5 @@ public interface ElectionDetailsDao extends JpaRepository<ElectionDetails, Long>
 ElectionDetails findByEndDate(Date endDate);
 List<ElectionDetails> findAll();
 List<ElectionDetails> findByConstituency(String constituency);
+ElectionDetails findById(long id);
 }
