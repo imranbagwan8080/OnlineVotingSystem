@@ -87,6 +87,7 @@ public class VoterServiceImpl implements VoterService {
 		System.out.println(electionData.toString());
 		
 		Voter voter = voterdao.findByVoterId(voterId);
+		
 		VoterDto voterDto = new VoterDto();
 		voterDto.setAadharNo(electionData.getAadharNo());
 		voterDto.setConstituency(electionData.getConstituency());
