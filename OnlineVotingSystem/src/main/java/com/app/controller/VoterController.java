@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dtos.VoterDto;
+import com.app.dtos.VoterIdCandidateId;
 import com.app.entities.Voter;
 import com.app.service.VoterService;
 
@@ -19,6 +22,7 @@ public class VoterController {
 	
 	@Autowired
 	private VoterService voterService;
+	
 	
 	
 	@PostMapping("/register")
@@ -45,6 +49,18 @@ public class VoterController {
 			return null;
 		}
 		
+	}
+	
+	@PostMapping("/vote")
+	public String voteForCandidate(@RequestBody VoterIdCandidateId vIdcId ){
+		  return   voterService.votForCandidates(vIdcId);
+		     
+	}
+	
+	@GetMapping("/voterDetails/{voterId}")
+	public VoterDto findVoterDetails(@PathVariable String voterId) {
+		 return   voterService.getVoterDetails(voterId); 
+	
 	}
 	
 	

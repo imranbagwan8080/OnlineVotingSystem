@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.app.entities.Candidate;
 
 public interface CandidateDao extends JpaRepository<Candidate, Long> {
-List<Candidate> findByElectionDataId(long ElectionId);
+    List<Candidate> findByElectionDataId(long ElectionId);
+
+    Candidate findById(long id);
 }
