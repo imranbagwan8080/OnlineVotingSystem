@@ -10,4 +10,5 @@ import com.app.entities.ElectionDetails;
 public interface ElectionDetailsDao extends JpaRepository<ElectionDetails, Long> {
 ElectionDetails findByEndDate(Date endDate);
 List<ElectionDetails> findAll();
+List<ElectionDetails> findByConstituency(String constituency);
 }
