@@ -4,6 +4,8 @@ import com.app.entities.Candidate;
 
 public interface CandidateService {
 	
-	public Candidate registerCandidate(Candidate candidate);
+
+	public String registerCandidate(Candidate candidate);
+
 
 }
