@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.customException.ResourceNotFoundException;
 import com.app.dao.CandidateDao;
 import com.app.dao.ElectionDataDao;
 import com.app.dao.ElectionDetailsDao;
+import com.app.dtos.ElectionCandidateDto;
 import com.app.dtos.ElectionDetailsDto;
 import com.app.dtos.PrevElectionDetailsDto;
 import com.app.entities.Candidate;
@@ -85,7 +87,7 @@ public ElectionDetailsDto addElectionDetails(ElectionDetailsDto ed) {
 	return new ElectionDetailsDto(eReturn.getNameOfElection(),eReturn.getConstituency(),eReturn.getStartDate(),eReturn.getEndDate(),eReturn.getState());
 }
 
-public ElectionDetailsDto getTodayElectionDetails() {
+public ElectionDetailsDto getTodayElectionDetails(String constituency) {
 //	Date d=new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     Date d = new Date();
@@ -111,7 +113,7 @@ public ElectionDetailsDto getTodayElectionDetails() {
 		    calendar2.set(Calendar.SECOND, 0);
 		    calendar2.set(Calendar.MILLISECOND, 0);
 		
-		if(calendar1.getTime().compareTo(calendar2.getTime())==0) {
+		if(calendar1.getTime().compareTo(calendar2.getTime())==0 && c.getConstituency().equals(constituency)) {
 			System.out.println("Yes");
 			matching=c;
 		}
@@ -129,6 +131,19 @@ public Set<String> getElectionNamesList() {
 	}
 	return set;
 }
+
+public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constituency) {
+	// TODO Auto-generated method stub
+	List<ElectionDetails> list=electionDetailsDao.findByConstituency(constituency);
+	List<ElectionDetailsDto> list2=new LinkedList<ElectionDetailsDto>();
+	for(ElectionDetails e:list) {
+		ElectionDetailsDto edt=new ElectionDetailsDto(e.getNameOfElection(), e.getConstituency(), e.getStartDate(), e.getEndDate(), e.getState());
+		list2.add(edt);
+	}
+	return list2;
+}
+
+
 
 
 

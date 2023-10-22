@@ -15,7 +15,6 @@ public class CandidateServiceImpl implements CandidateService {
 	@Autowired
 	public CandidateDao candidateDao;
 	
-
 	@Override
 	public String registerCandidate(Candidate candidate) {
 		System.out.println("Candidate service");

@@ -23,23 +23,28 @@ public class ElectionDetailsController {
 	@Autowired
 	ElectionDetailsServiceImpl electionDetailsServiceImpl;
 	
+	//All election list (for admin/homepage)
 	@GetMapping("/ElectionList")
 	public ResponseEntity<?> getAllElectionDetails(){
 		return ResponseEntity.ok(electionDetailsServiceImpl.getAllElectionDetails());
 	}
 	
+	//previous election Details with winner (previous=less than current date)
 	@GetMapping("/PrevElectionList")
 	public ResponseEntity<?> getPreviousElectionDetails(){
 		System.out.println("In Controller");
 		return ResponseEntity.ok(electionDetailsServiceImpl.getPreviousElectionDetails());
 	}
+	//adding new Election Details without winner 
 	@PostMapping("/AddNewElection")
 	public ResponseEntity<?> addElectionDetails(@RequestBody ElectionDetailsDto electionDetailsDto){
 		return ResponseEntity.ok(electionDetailsServiceImpl.addElectionDetails(electionDetailsDto));
 	}
-	@GetMapping("/TodayElection")
-	public ResponseEntity<?> todayElectionDetails(){
-		return ResponseEntity.ok(electionDetailsServiceImpl.getTodayElectionDetails());
+	
+	//todays election showing for voter/admin by constituency
+	@GetMapping("/TodayElection/{constituency}")
+	public ResponseEntity<?> todayElectionDetails(@PathVariable("constituency") String constituency){
+		return ResponseEntity.ok(electionDetailsServiceImpl.getTodayElectionDetails(constituency));
 	}
 	@GetMapping("/ElectionNameList")
 	//distinct election only name list
@@ -47,7 +52,11 @@ public class ElectionDetailsController {
 		return ResponseEntity.ok(electionDetailsServiceImpl.getElectionNamesList());
 	}
 	
-	
+	//Get Election Details by constituency for admin
+	@GetMapping("/ElectionByConstituency/{constituency}")
+	public ResponseEntity<?> getElectionListByConstituency(@PathVariable("constituency") String constituency){
+		return ResponseEntity.ok(electionDetailsServiceImpl.getElectionDeatilsByConstituency(constituency));
+	}
 	
 	
 }
