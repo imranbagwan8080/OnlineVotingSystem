@@ -202,6 +202,8 @@ public List<ElectionCandidateDto> getElectionCandidateList(long id) {
 
 @Override
 public Optional<ElectionDetails> findElectionDetails(long id) {
+	
+	
 	// TODO Auto-generated method stub
 	Optional<ElectionDetails> details =  Optional.ofNullable(electionDetailsDao.findById(id));
 	if(details!=null) {
