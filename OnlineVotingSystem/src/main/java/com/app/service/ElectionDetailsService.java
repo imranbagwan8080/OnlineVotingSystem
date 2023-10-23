@@ -13,5 +13,5 @@ public interface ElectionDetailsService {
 	public ElectionDetailsDto addElectionDetails(ElectionDetailsDto electionDetailsDto);
 	public Set<String> getElectionNamesList() ;
 	public ElectionDetailsDto getTodayElectionDetails(String constituency);
-
+	public List<ElectionCandidateDto> getElectionCandidateList(long id);
 }
