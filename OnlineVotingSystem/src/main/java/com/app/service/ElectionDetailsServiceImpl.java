@@ -168,6 +168,35 @@ public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constitue
  }
 
 
+public List<ElectionCandidateDto> getElectionCandidateList(long id) {
+	ElectionDetails e=electionDetailsDao.findById(id);
+	List<Candidate> list1=e.getCandidates();
+	List<ElectionCandidateDto> list2=new LinkedList<ElectionCandidateDto>();
+	for(Candidate c:list1) {
+		ElectionCandidateDto ec=new ElectionCandidateDto(c.getId(),c.getElectionData().getFName(),c.getElectionData().getLName(),c.getParty(),c.getCandidateImage(),c.getPartySymbol(),c.getElectionData().getGender(),c.getVoteCount());
+		list2.add(ec);
+		
+	}
+	return list2;
+}
+
+@Override
+public Optional<ElectionDetails> findElectionDetails(long id) {
+	
+	
+	// TODO Auto-generated method stub
+	Optional<ElectionDetails> details =  Optional.ofNullable(electionDetailsDao.findById(id));
+	if(details!=null) {
+		return details;
+	}else {
+		return null;
+	}
+	
+	
+}
+
+
+
 
 
 
