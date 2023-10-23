@@ -1,5 +1,7 @@
 package com.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,11 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dao.ElectionDataDao;
 import com.app.dao.ElectionDetailsDao;
 import com.app.dtos.CandidateDto;
+import com.app.dtos.CandidateDtos;
 import com.app.dtos.ConverterDto;
+import com.app.dtos.VotingforCandidateDto;
 import com.app.entities.Candidate;
 import com.app.entities.ElectionData;
 import com.app.entities.ElectionDetails;
 import com.app.service.CandidateService;
+import com.app.service.ElectionDetailsService;
 import com.app.service.StorageService;
 
 @RestController
@@ -40,7 +45,8 @@ public class CandidateController {
 	@Autowired
 	public ElectionDataDao edataDao;	
 	
-	
+	@Autowired
+	public ElectionDetailsService electionDetailsService;
 	
 	@PostMapping("/register")
 	public String registerCandidate(CandidateDto candidateDto) {
@@ -72,5 +78,19 @@ public class CandidateController {
 	             return	ResponseEntity.ok(reject);
 	    	   
 	     }
+	 @GetMapping("/allCandidate/{electionId}")
+	   public ResponseEntity<?> getAllCandidateByElectionId(@PathVariable long electionId){
+		 List<CandidateDtos> candidates = electionDetailsService.getAllCandidates(electionId);
+		   return ResponseEntity.ok(candidates);
+	   }
+	
+	@GetMapping("/verified")
+	public List<VotingforCandidateDto> getCandidateDetails(VotingforCandidateDto electionVoterId) {
+		
+		List<VotingforCandidateDto> cd = candidateServ.getCandidateDetails(electionVoterId);
+		
+		return cd;
+	}
+	
 	
 }
