@@ -31,8 +31,7 @@ public class Voter extends BaseEntity{
      @Column(length = 15 )
 	 private String status;
      
-     @OneToOne
-     private ElectionData electionData;
+
      
      
 }

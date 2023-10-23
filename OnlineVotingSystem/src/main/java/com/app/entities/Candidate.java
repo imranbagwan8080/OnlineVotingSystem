@@ -16,7 +16,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "candidate")
@@ -52,11 +51,24 @@ public class Candidate extends BaseEntity{
 	
 	@Column(length = 20)
 	private String status;
-	
-	
-	
-	
-	
+
+//	public Candidate(ElectionDetails electionDetails, ElectionData electionData) {
+//		this.electionDetails = electionDetails;
+//		this.electionData = electionData;
+//	}
+
+	public Candidate(String party, String candidateImage, String partySymbol, String occupation, String education,
+			 ElectionDetails electionDetails, ElectionData electionData, String status) {
+		super();
+		this.party = party;
+		this.candidateImage = candidateImage;
+		this.partySymbol = partySymbol;
+		this.occupation = occupation;
+		this.education = education;
+		this.electionDetails = electionDetails;
+		this.electionData = electionData;
+		this.status = status;
+	}
 	
 	
 	

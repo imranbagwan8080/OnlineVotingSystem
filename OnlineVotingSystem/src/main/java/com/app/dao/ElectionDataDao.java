@@ -6,4 +6,5 @@ import com.app.entities.ElectionData;
 
 public interface ElectionDataDao extends JpaRepository<ElectionData, Long> {
 
+	ElectionData findByVoterId(String voterId);
 }

@@ -6,4 +6,6 @@ import com.app.entities.Voter;
 
 public interface VoterDao extends JpaRepository<Voter, Long> {
 
+	Voter findByVoterIdAndPassword(String vId, String pass);
+    Voter findByVoterId(String voterId);
 }
