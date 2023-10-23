@@ -167,7 +167,12 @@ public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constitue
 	return list;
  }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
 
+>>>>>>> b64570ddcb03163e5493e566e1111eb998cfa4b8
 public List<ElectionCandidateDto> getElectionCandidateList(long id) {
 	ElectionDetails e=electionDetailsDao.findById(id);
 	List<Candidate> list1=e.getCandidates();
@@ -195,6 +200,10 @@ public Optional<ElectionDetails> findElectionDetails(long id) {
 	
 }
 
+<<<<<<< HEAD
+>>>>>>> a3959973e4f5886f45c4edce4232512fa084b250
+=======
+>>>>>>> b64570ddcb03163e5493e566e1111eb998cfa4b8
 
 
 
