@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dtos.WinnerDto;
 import com.app.entities.AdminData;
 import com.app.service.AdminServiceImpl;
 
@@ -26,6 +27,23 @@ public class AdminController {
 	    @PostMapping("/signin")
 	    public ResponseEntity<?> adminSignIn(@RequestBody AdminData adminData) {
 	    	   return ResponseEntity.ok(adminService.adminSignInService(adminData));
+	    }
+	    
+	    
+	    @GetMapping("/result/{electionId}")
+	    public WinnerDto result(@PathVariable long electionId) {
+	    WinnerDto winner =	adminService.getResult(electionId);
+	    
+	   
+	    if(winner!=null) {
+	    	return winner;
+	    }else {
+	    	return null;
+	    }
+		
+	    	
+			
+	    	
 	    }
 	    
 	   

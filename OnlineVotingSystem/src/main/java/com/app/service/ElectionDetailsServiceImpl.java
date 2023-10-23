@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,6 +176,18 @@ public List<ElectionCandidateDto> getElectionCandidateList(long id) {
 	return list2;
 }
 
+@Override
+public Optional<ElectionDetails> findElectionDetails(long id) {
+	// TODO Auto-generated method stub
+	Optional<ElectionDetails> details =  Optional.ofNullable(electionDetailsDao.findById(id));
+	if(details!=null) {
+		return details;
+	}else {
+		return null;
+	}
+	
+	
+}
 
 
 
