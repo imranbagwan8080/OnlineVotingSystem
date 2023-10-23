@@ -8,7 +8,18 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.transaction.Transactional;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 @Service
 @Transactional
 public class StorageServiceImpl implements StorageService {
@@ -36,6 +47,16 @@ public class StorageServiceImpl implements StorageService {
 			throw new RuntimeException(e);
 		}
 		
+	}
+	
+	
+	@Override
+	public Resource load(String fileName) {
+		File filePath = new File("images", fileName);
+		System.out.println("Loading file: " + filePath.getAbsolutePath());
+		if(filePath.exists())
+			return new FileSystemResource(filePath);
+		return null;
 	}
 	
 }

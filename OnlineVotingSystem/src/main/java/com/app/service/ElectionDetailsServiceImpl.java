@@ -1,21 +1,27 @@
 package com.app.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.customException.ResourceNotFoundException;
 import com.app.dao.CandidateDao;
 import com.app.dao.ElectionDataDao;
 import com.app.dao.ElectionDetailsDao;
+import com.app.dao.VoterDao;
+import com.app.dtos.CandidateDtos;
+import com.app.dtos.ConverterDto;
 import com.app.dtos.ElectionCandidateDto;
 import com.app.dtos.ElectionDetailsDto;
 import com.app.dtos.PrevElectionDetailsDto;
@@ -32,6 +38,10 @@ ElectionDetailsDao electionDetailsDao;
 CandidateDao candidateDao;
 @Autowired
 ElectionDataDao electionDataDao;
+@Autowired
+VoterDao voterDao ;
+@Autowired
+ConverterDto converterDto;
 
 public List<ElectionDetailsDto> getAllElectionDetails(){
 	List<ElectionDetails> list=electionDetailsDao.findAll();
@@ -142,6 +152,20 @@ public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constitue
 	}
 	return list2;
 }
+
+    @Override
+   public List<CandidateDtos> getAllCandidates(long electionId) {
+	ElectionDetails electionDetails = electionDetailsDao.findById(electionId).orElseThrow();
+	List<Candidate> candidateList = electionDetails.getCandidates();
+	
+	List<CandidateDtos> list = new ArrayList<CandidateDtos>();
+	
+	for(Candidate c : candidateList ) {
+		ElectionData electionData = c.getElectionData();
+		list.add(converterDto.toCandidateDtos(c, electionData));
+	}
+	return list;
+ }
 
 
 
