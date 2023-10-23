@@ -75,6 +75,7 @@ public class CandidateServiceImpl implements CandidateService {
 //			System.out.println(vc.getCandidateImage() +" ,"+ vc.getFName());
 			vcd.add(vc);
 		}
+
 		return vcd;}
   
 	public String verifyCandidateByAdmin(long candidateId) {

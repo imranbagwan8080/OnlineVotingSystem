@@ -55,32 +55,12 @@ public List<ElectionDetailsDto> getAllElectionDetails(){
 
 public List<PrevElectionDetailsDto> getPreviousElectionDetails() {
 	// TODO Auto-generated method stub
-	
-	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
-    Date d = new Date();
-    
-    Calendar calendar1 = Calendar.getInstance();
-    calendar1.setTime(d);
-    calendar1.set(Calendar.HOUR_OF_DAY, 0);
-    calendar1.set(Calendar.MINUTE, 0);
-    calendar1.set(Calendar.SECOND, 0);
-    calendar1.set(Calendar.MILLISECOND, 0);
-    
-	System.out.println("Calender 1: "+Calendar.YEAR+"-"+Calendar.MONTH+"-"+Calendar.DAY_OF_MONTH);
+	Date d=new Date();
+	System.out.println(d);
 	List<ElectionDetails> list=electionDetailsDao.findAll();
 	List<PrevElectionDetailsDto> list2=new LinkedList<PrevElectionDetailsDto>();
 	for(ElectionDetails e:list) {
-		
-		 Calendar calendar2 = Calendar.getInstance();
-		    calendar2.setTime(e.getEndDate());
-		    calendar2.set(Calendar.HOUR_OF_DAY, 0);
-		    calendar2.set(Calendar.MINUTE, 0);
-		    calendar2.set(Calendar.SECOND, 0);
-		    calendar2.set(Calendar.MILLISECOND, 0);
-		    System.out.println("Calender 2 :"+Calendar.YEAR+"-"+Calendar.MONTH+"-"+Calendar.DAY_OF_MONTH);
-		
-		if(calendar2.compareTo(calendar1)<0) {
+		if(e.getEndDate().compareTo(d)<0) {
 			System.out.println("I am in If Statement");
 			PrevElectionDetailsDto winner=new PrevElectionDetailsDto();
 			List<Candidate> list3 =e.getCandidates();
@@ -102,7 +82,6 @@ public List<PrevElectionDetailsDto> getPreviousElectionDetails() {
 				
 				}
 			}
-			if(e.getWinnerVoterId()!=0)
 			list2.add(winner);
 		}
 		
@@ -151,7 +130,7 @@ public ElectionDetailsDto getTodayElectionDetails(String constituency) {
 	}
 
 	System.out.println();
-	return new ElectionDetailsDto(matching.getId(),matching.getNameOfElection(), matching.getConstituency(), matching.getStartDate(), matching.getEndDate(), matching.getState());
+	return new ElectionDetailsDto( matching.getId(),matching.getNameOfElection(), matching.getConstituency(), matching.getStartDate(), matching.getEndDate(), matching.getState());
 }
 
 public Set<String> getElectionNamesList() {
@@ -174,7 +153,6 @@ public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constitue
 	return list2;
 }
 
-
     @Override
    public List<CandidateDtos> getAllCandidates(long electionId) {
 	ElectionDetails electionDetails = electionDetailsDao.findById(electionId);
@@ -188,6 +166,7 @@ public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constitue
 	}
 	return list;
  }
+
 
 public List<ElectionCandidateDto> getElectionCandidateList(long id) {
 	ElectionDetails e=electionDetailsDao.findById(id);
