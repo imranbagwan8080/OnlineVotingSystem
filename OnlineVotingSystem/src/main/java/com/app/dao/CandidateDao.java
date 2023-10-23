@@ -13,4 +13,5 @@ public interface CandidateDao extends JpaRepository<Candidate, Long> {
 
     Candidate findById(long id);
     
+    List<Candidate>  findByElectionDetailsId(long electionDetailsID);
 }

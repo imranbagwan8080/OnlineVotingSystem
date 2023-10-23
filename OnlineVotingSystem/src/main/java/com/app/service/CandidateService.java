@@ -10,5 +10,11 @@ public interface CandidateService {
 
 	public String registerCandidate(Candidate candidate);
 
+
 	public List<VotingforCandidateDto> getCandidateDetails(VotingforCandidateDto electionVoterId);
+	public String verifyCandidateByAdmin(long candidateId);
+
+	public String rejectCandidateByAdmin(long candidateId);
+
+
 }

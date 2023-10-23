@@ -24,6 +24,7 @@ public class CandidateServiceImpl implements CandidateService {
 	@Autowired
 	public CandidateDao candidateDao;
 	
+
 	@Autowired
 	public  ElectionDataDao electionDataDao;
 	
@@ -40,6 +41,7 @@ public class CandidateServiceImpl implements CandidateService {
 
 
 	@Override
+
 	public List<VotingforCandidateDto> getCandidateDetails(VotingforCandidateDto electionVoterId) {
 		ElectionData ed = electionDataDao.findByVoterId(electionVoterId.getVoterId());
 		
@@ -74,6 +76,20 @@ public class CandidateServiceImpl implements CandidateService {
 			vcd.add(vc);
 		}
 		return vcd;
+  
+	public String verifyCandidateByAdmin(long candidateId) {
+		Candidate candidate = candidateDao.findById(candidateId);
+		candidate.setStatus("verified");
+		return "candidate verified succesfully";
+	}
+
+
+	@Override
+	public String rejectCandidateByAdmin(long candidateId) {
+		Candidate candidate = candidateDao.findById(candidateId);
+		candidate.setStatus("rejected");
+		return "candidate rejected succesfully";
+
 	}
 	
 

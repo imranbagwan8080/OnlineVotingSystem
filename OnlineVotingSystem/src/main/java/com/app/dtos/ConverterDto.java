@@ -32,4 +32,24 @@ public class ConverterDto {
 		return candidate;
 	}
 	
+	public CandidateDtos toCandidateDtos(Candidate c , ElectionData electionData) {
+		CandidateDtos candidate = new CandidateDtos();
+		candidate.setFName(electionData.getFName());
+		candidate.setLName(electionData.getLName());
+		candidate.setMobile(electionData.getMobile());
+		candidate.setDob(electionData.getDob());
+		candidate.setEducation(c.getEducation());
+		candidate.setOccupation(c.getOccupation());
+		candidate.setParty(c.getParty());
+		candidate.setVoteCount(c.getVoteCount());
+		candidate.setVoterId(electionData.getVoterId());
+		candidate.setConstituency(electionData.getConstituency());
+		// Image load from front end by using candidateImage name
+		candidate.setCandidateImage(c.getCandidateImage());
+		// Image load from front end by using partySymbole name
+		candidate.setPartySymbol(c.getPartySymbol());
+		
+		return candidate;
+	}
+	
 }

@@ -1,20 +1,28 @@
 package com.app.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.app.customException.ResourceNotFoundException;
 import com.app.dao.CandidateDao;
 import com.app.dao.ElectionDataDao;
 import com.app.dao.ElectionDetailsDao;
+import com.app.dao.VoterDao;
+import com.app.dtos.CandidateDtos;
+import com.app.dtos.ConverterDto;
+import com.app.dtos.ElectionCandidateDto;
 import com.app.dtos.ElectionDetailsDto;
 import com.app.dtos.PrevElectionDetailsDto;
 import com.app.entities.Candidate;
@@ -30,12 +38,16 @@ ElectionDetailsDao electionDetailsDao;
 CandidateDao candidateDao;
 @Autowired
 ElectionDataDao electionDataDao;
+@Autowired
+VoterDao voterDao ;
+@Autowired
+ConverterDto converterDto;
 
 public List<ElectionDetailsDto> getAllElectionDetails(){
 	List<ElectionDetails> list=electionDetailsDao.findAll();
 	List<ElectionDetailsDto> list2=new LinkedList<ElectionDetailsDto>();
 	for(ElectionDetails e:list) {
-		ElectionDetailsDto obj=new ElectionDetailsDto(e.getNameOfElection(), e.getConstituency(), e.getStartDate(), e.getEndDate(), e.getState());
+		ElectionDetailsDto obj=new ElectionDetailsDto(e.getId(),e.getNameOfElection(), e.getConstituency(), e.getStartDate(), e.getEndDate(), e.getState());
 	list2.add(obj);
 	}
 	return list2;
@@ -43,12 +55,32 @@ public List<ElectionDetailsDto> getAllElectionDetails(){
 
 public List<PrevElectionDetailsDto> getPreviousElectionDetails() {
 	// TODO Auto-generated method stub
-	Date d=new Date();
-	System.out.println(d);
+	
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+    Date d = new Date();
+    
+    Calendar calendar1 = Calendar.getInstance();
+    calendar1.setTime(d);
+    calendar1.set(Calendar.HOUR_OF_DAY, 0);
+    calendar1.set(Calendar.MINUTE, 0);
+    calendar1.set(Calendar.SECOND, 0);
+    calendar1.set(Calendar.MILLISECOND, 0);
+    
+	System.out.println("Calender 1: "+Calendar.YEAR+"-"+Calendar.MONTH+"-"+Calendar.DAY_OF_MONTH);
 	List<ElectionDetails> list=electionDetailsDao.findAll();
 	List<PrevElectionDetailsDto> list2=new LinkedList<PrevElectionDetailsDto>();
 	for(ElectionDetails e:list) {
-		if(e.getEndDate().compareTo(d)<0) {
+		
+		 Calendar calendar2 = Calendar.getInstance();
+		    calendar2.setTime(e.getEndDate());
+		    calendar2.set(Calendar.HOUR_OF_DAY, 0);
+		    calendar2.set(Calendar.MINUTE, 0);
+		    calendar2.set(Calendar.SECOND, 0);
+		    calendar2.set(Calendar.MILLISECOND, 0);
+		    System.out.println("Calender 2 :"+Calendar.YEAR+"-"+Calendar.MONTH+"-"+Calendar.DAY_OF_MONTH);
+		
+		if(calendar2.compareTo(calendar1)<0) {
 			System.out.println("I am in If Statement");
 			PrevElectionDetailsDto winner=new PrevElectionDetailsDto();
 			List<Candidate> list3 =e.getCandidates();
@@ -70,6 +102,7 @@ public List<PrevElectionDetailsDto> getPreviousElectionDetails() {
 				
 				}
 			}
+			if(e.getWinnerVoterId()!=0)
 			list2.add(winner);
 		}
 		
@@ -82,10 +115,10 @@ public List<PrevElectionDetailsDto> getPreviousElectionDetails() {
 public ElectionDetailsDto addElectionDetails(ElectionDetailsDto ed) {
 	ElectionDetails e=new ElectionDetails(ed.getNameOfElection(),ed.getConstituency(),ed.getStartDate(),ed.getEndDate(),ed.getState());
 	ElectionDetails eReturn=electionDetailsDao.save(e);
-	return new ElectionDetailsDto(eReturn.getNameOfElection(),eReturn.getConstituency(),eReturn.getStartDate(),eReturn.getEndDate(),eReturn.getState());
+	return new ElectionDetailsDto(eReturn.getId(),eReturn.getNameOfElection(),eReturn.getConstituency(),eReturn.getStartDate(),eReturn.getEndDate(),eReturn.getState());
 }
 
-public ElectionDetailsDto getTodayElectionDetails() {
+public ElectionDetailsDto getTodayElectionDetails(String constituency) {
 //	Date d=new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     Date d = new Date();
@@ -111,14 +144,14 @@ public ElectionDetailsDto getTodayElectionDetails() {
 		    calendar2.set(Calendar.SECOND, 0);
 		    calendar2.set(Calendar.MILLISECOND, 0);
 		
-		if(calendar1.getTime().compareTo(calendar2.getTime())==0) {
+		if(calendar1.getTime().compareTo(calendar2.getTime())==0 && c.getConstituency().equals(constituency)) {
 			System.out.println("Yes");
 			matching=c;
 		}
 	}
 
 	System.out.println();
-	return new ElectionDetailsDto(matching.getNameOfElection(), matching.getConstituency(), matching.getStartDate(), matching.getEndDate(), matching.getState());
+	return new ElectionDetailsDto(matching.getId(),matching.getNameOfElection(), matching.getConstituency(), matching.getStartDate(), matching.getEndDate(), matching.getState());
 }
 
 public Set<String> getElectionNamesList() {
@@ -129,6 +162,58 @@ public Set<String> getElectionNamesList() {
 	}
 	return set;
 }
+
+public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constituency) {
+	// TODO Auto-generated method stub
+	List<ElectionDetails> list=electionDetailsDao.findByConstituency(constituency);
+	List<ElectionDetailsDto> list2=new LinkedList<ElectionDetailsDto>();
+	for(ElectionDetails e:list) {
+		ElectionDetailsDto edt=new ElectionDetailsDto(e.getId(),e.getNameOfElection(), e.getConstituency(), e.getStartDate(), e.getEndDate(), e.getState());
+		list2.add(edt);
+	}
+	return list2;
+}
+
+
+    @Override
+   public List<CandidateDtos> getAllCandidates(long electionId) {
+	ElectionDetails electionDetails = electionDetailsDao.findById(electionId).orElseThrow();
+	List<Candidate> candidateList = electionDetails.getCandidates();
+	
+	List<CandidateDtos> list = new ArrayList<CandidateDtos>();
+	
+	for(Candidate c : candidateList ) {
+		ElectionData electionData = c.getElectionData();
+		list.add(converterDto.toCandidateDtos(c, electionData));
+	}
+	return list;
+ }
+
+public List<ElectionCandidateDto> getElectionCandidateList(long id) {
+	ElectionDetails e=electionDetailsDao.findById(id);
+	List<Candidate> list1=e.getCandidates();
+	List<ElectionCandidateDto> list2=new LinkedList<ElectionCandidateDto>();
+	for(Candidate c:list1) {
+		ElectionCandidateDto ec=new ElectionCandidateDto(c.getId(),c.getElectionData().getFName(),c.getElectionData().getLName(),c.getParty(),c.getCandidateImage(),c.getPartySymbol(),c.getElectionData().getGender(),c.getVoteCount());
+		list2.add(ec);
+	}
+	return list2;
+}
+
+@Override
+public Optional<ElectionDetails> findElectionDetails(long id) {
+	// TODO Auto-generated method stub
+	Optional<ElectionDetails> details =  Optional.ofNullable(electionDetailsDao.findById(id));
+	if(details!=null) {
+		return details;
+	}else {
+		return null;
+	}
+	
+	
+}
+
+
 
 
 
