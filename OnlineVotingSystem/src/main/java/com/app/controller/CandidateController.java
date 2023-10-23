@@ -16,6 +16,7 @@ import com.app.dao.ElectionDetailsDao;
 import com.app.dtos.CandidateDto;
 import com.app.dtos.CandidateDtos;
 import com.app.dtos.ConverterDto;
+import com.app.dtos.VotingforCandidateDto;
 import com.app.entities.Candidate;
 import com.app.entities.ElectionData;
 import com.app.entities.ElectionDetails;
@@ -82,5 +83,14 @@ public class CandidateController {
 		 List<CandidateDtos> candidates = electionDetailsService.getAllCandidates(electionId);
 		   return ResponseEntity.ok(candidates);
 	   }
+	
+	@GetMapping("/verified")
+	public List<VotingforCandidateDto> getCandidateDetails(VotingforCandidateDto electionVoterId) {
+		
+		List<VotingforCandidateDto> cd = candidateServ.getCandidateDetails(electionVoterId);
+		
+		return cd;
+	}
+	
 	
 }

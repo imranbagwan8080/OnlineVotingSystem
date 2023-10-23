@@ -2,7 +2,12 @@ package com.app.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,15 +53,22 @@ public class StorageServiceImpl implements StorageService {
 		}
 		
 	}
-	
-	
+
 	@Override
 	public Resource load(String fileName) {
+		
 		File filePath = new File("images", fileName);
 		System.out.println("Loading file: " + filePath.getAbsolutePath());
 		if(filePath.exists())
 			return new FileSystemResource(filePath);
 		return null;
+	}
+	
+
+	@Override
+	public List<String> loadAll() {
+		File dirPath = new File("images");
+		return Stream.of(dirPath.list()).collect(Collectors.toList());
 	}
 	
 }
