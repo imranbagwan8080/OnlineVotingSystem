@@ -7,5 +7,5 @@ public interface AdminService {
       
 	public AdminData adminSignInService(AdminData adminData) ;
 	
-	public WinnerDto getResult(long id);
+
 }

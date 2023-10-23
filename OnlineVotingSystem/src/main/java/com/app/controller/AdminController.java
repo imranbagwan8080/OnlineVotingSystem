@@ -30,21 +30,5 @@ public class AdminController {
 	    }
 	    
 	    
-	    @GetMapping("/result/{electionId}")
-	    public WinnerDto result(@PathVariable long electionId) {
-	    WinnerDto winner =	adminService.getResult(electionId);
-	    
-	   
-	    if(winner!=null) {
-	    	return winner;
-	    }else {
-	    	return null;
-	    }
-		
-	    	
-			
-	    	
-	    }
-	    
 	   
 }

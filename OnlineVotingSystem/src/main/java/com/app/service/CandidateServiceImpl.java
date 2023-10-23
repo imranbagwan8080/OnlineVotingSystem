@@ -76,7 +76,7 @@ public class CandidateServiceImpl implements CandidateService {
 			vcd.add(vc);
 		}
 		return vcd;
-  
+	}
 	public String verifyCandidateByAdmin(long candidateId) {
 		Candidate candidate = candidateDao.findById(candidateId);
 		candidate.setStatus("verified");

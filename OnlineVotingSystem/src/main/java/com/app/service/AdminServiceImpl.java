@@ -44,48 +44,6 @@ public class AdminServiceImpl implements AdminService {
 		return null;
 	}
 
-	public WinnerDto getResult(long electionId) {
-		// TODO Auto-generated method stub
-		List<Candidate> list = candidateDao.findByElectionDetailsId(electionId);
-
-		long max = 0, candidateID = 0;
-		int i = 0;
-		Candidate candidate = new Candidate();
-		for (Candidate c : list) {
-			if (c.getVoteCount() > max) {
-				max = c.getVoteCount();
-				candidateID = c.getId();
-				candidate = c;
-
-			}
-
-		}
-
-		System.out.println("after for loop " + candidateID);
-		Optional<ElectionDetails> electionDetails = electioDetailsService.findElectionDetails(electionId);
-
-		System.out.println(candidateID);
-
-		if (electionDetails != null) {
-			System.out.println(candidateID);
-			// electionDetails.get().setWinnerVoterId(candidateID);
-			electionDetailsDao.updateField(candidateID, electionId);
-
-		}
-
-		ElectionData electionData = electionDataDao.findById(candidate.getElectionData().getId());
-
-		WinnerDto winnerDto = new WinnerDto();
-		System.out.println(electionData.getFName());
-
-		winnerDto.setFname(electionData.getFName());
-		winnerDto.setLname(electionData.getLName());
-		winnerDto.setParty(candidate.getParty());
-		winnerDto.setConstituency(electionDetails.get().getConstituency());
-		winnerDto.setVoteCount(candidate.getVoteCount());
-
-		return winnerDto;
-
-	}
+	
 
 }
