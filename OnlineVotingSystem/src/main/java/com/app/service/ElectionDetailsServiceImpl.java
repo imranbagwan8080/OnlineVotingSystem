@@ -196,6 +196,7 @@ public List<ElectionCandidateDto> getElectionCandidateList(long id) {
 	for(Candidate c:list1) {
 		ElectionCandidateDto ec=new ElectionCandidateDto(c.getId(),c.getElectionData().getFName(),c.getElectionData().getLName(),c.getParty(),c.getCandidateImage(),c.getPartySymbol(),c.getElectionData().getGender(),c.getVoteCount());
 		list2.add(ec);
+		
 	}
 	return list2;
 }
