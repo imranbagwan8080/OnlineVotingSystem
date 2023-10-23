@@ -177,7 +177,7 @@ public List<ElectionDetailsDto>getElectionDeatilsByConstituency(String constitue
 
     @Override
    public List<CandidateDtos> getAllCandidates(long electionId) {
-	ElectionDetails electionDetails = electionDetailsDao.findById(electionId).orElseThrow();
+	ElectionDetails electionDetails = electionDetailsDao.findById(electionId);
 	List<Candidate> candidateList = electionDetails.getCandidates();
 	
 	List<CandidateDtos> list = new ArrayList<CandidateDtos>();
@@ -215,6 +215,7 @@ public Optional<ElectionDetails> findElectionDetails(long id) {
 	
 	
 }
+
 
 
 
